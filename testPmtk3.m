@@ -58,6 +58,7 @@ if isOctave()
 end
 
 fprintf('Testing selected code............\n\n\n\n');
+hmmDiscreteTest;
 logregL2FitTest;
 newcombDemo
 close all
@@ -65,7 +66,6 @@ discrimAnalysisDboundariesDemo;
 close all
 testSprinklerDemo;
 close all
-hmmDiscreteTest;
 knnClassifyDemo;
 pcaDemo2d;
 close all
