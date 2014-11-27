@@ -1,4 +1,5 @@
 function [observed, hidden] = hmmSample(model, len, nsamples)
+myfix = true;
 % hidden{i}(1:len(i)) ~ markov(model.pi, model.A)
 % observed{i}(t) ~ discrete(model.emission(hidden{i}(t), :))
 %                 or
@@ -36,7 +37,11 @@ switch lower(model.type)
             observed{i} = zeros(d, T);
             for t=1:T
                 k = hidden{i}(t); 
-                observed{i}(:, t) = colvec(gaussSample(mu(:, k), Sigma(:, :, k), 1));
+                if (myfix)
+                    observed{i}(:, t) = randn(1,1) * Sigma(k) + mu(k);%gaussSample(mu(:, k), Sigma(:, :, k), 1);
+                else
+                    observed{i}(:, t) = colvec(gaussSample(mu(:, k), Sigma(:, :, k), 1));
+                end
             end
         end
         
