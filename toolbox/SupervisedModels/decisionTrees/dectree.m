@@ -10,6 +10,12 @@ classdef dectree < handle
        yhat;            %Predicted output for any example that reaches and remains at this node.  
        left =  [];      %Left  child
        right = [];      %Right child
+       
+    end
+    
+    properties (Access = public)
+        bestFeature = 0;
+        value = 0;
     end
     
     methods

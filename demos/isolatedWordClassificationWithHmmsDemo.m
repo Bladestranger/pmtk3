@@ -4,7 +4,8 @@
 
 % This file is from pmtk3.googlecode.com
 
-loadData('speechDataDigits4And5'); 
+% loadData('speechDataDigits4And5'); 
+load('speechDataDigits4And5.mat');
 nstates = 5;
 setSeed(0); 
 Xtrain = [train4'; train5'];
@@ -28,7 +29,7 @@ logprobFn = @hmmLogprob;
 nerrors = sum(yhat ~= ytest);
 display(nerrors);
 
-if 0
+if 1
 %% Do the same thing with a tied mixture of Gaussians observation model
 nmix    = 3; 
 fitArgs = [fitArgs, {'nmix', nmix}];

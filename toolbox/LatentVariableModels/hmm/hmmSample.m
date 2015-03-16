@@ -1,5 +1,5 @@
 function [observed, hidden] = hmmSample(model, len, nsamples)
-myfix = true;
+myfix = false;
 % hidden{i}(1:len(i)) ~ markov(model.pi, model.A)
 % observed{i}(t) ~ discrete(model.emission(hidden{i}(t), :))
 %                 or

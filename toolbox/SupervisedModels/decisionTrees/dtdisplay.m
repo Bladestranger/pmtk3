@@ -17,6 +17,7 @@ function dtdisplay(tree)
     function plotChildren(node,x,y)
         
         text(x,y+1.5,num2str(node.splitFeature));
+        text(x-1.5,y-1.5, [num2str(node.value)]);
         plot(x,y,markerType,'MarkerSize',markerSize);
         newY = y - height;
         

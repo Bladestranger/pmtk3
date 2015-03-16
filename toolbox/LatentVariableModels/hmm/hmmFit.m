@@ -1,6 +1,6 @@
 function [model, loglikHist] = hmmFit(data, nstates, type, varargin)
 %% Fit a hidden markov model (by default, we use  EM)
-%
+%3) If we are looking for Maximum likelihood, then where the Viterbi comes 
 %% Inputs
 % data         - data{i} is a d*seqLength(i) matrix of observations,
 %                 where d = size of observation (d=1 if type = 'discrete')

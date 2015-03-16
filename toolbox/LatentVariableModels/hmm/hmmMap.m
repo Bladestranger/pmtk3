@@ -15,7 +15,7 @@ function path = hmmMap(model, X)
 pi = model.pi;
 A  = model.A;
 logB  = mkSoftEvidence(model.emission, X);
-%[path1] = hmmViterbiC(log(pi+eps), log(A+eps), logB);
+% [path] = hmmViterbiC(log(pi+eps), log(A+eps), logB);
 % this C code is a bit ugly
 
 % Use Dan Ellis's C code instead

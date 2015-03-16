@@ -51,6 +51,8 @@ function root = dtfit(X,y,varargin)
         root.isRegression = isRegression;   % 
         root.examples = (1:nexamples)';     % examples and features are stored 
         root.features = 1:nfeatures;        % at each node as indicies into X
+        root.bestFeature = 0;
+        root.value = 0;
         setyhat(root);                      % This is the predicted output at this point in the tree. 
         partition(root);                    % begin splitting the tree
     end
@@ -58,10 +60,14 @@ function root = dtfit(X,y,varargin)
     function partition(node)
     %Recursively partition nodes until one of the base cases is reached.
         if(baseCases1_4(node.examples,node.features));return,end         %Base cases 1-4
-        [bestFeature,leftExamples, rightExamples,fork,gain] = selectFeature(node.examples,node.features);
+        [bestFeature,leftExamples, rightExamples,fork,gain, value] = selectFeature(node.examples,node.features);
         if(baseCases5_6(leftExamples,rightExamples,gain));return,end     %Base cases 5-6
         node.splitFeature = bestFeature;
         node.fork = fork;                                                %Used to direct test examples through the tree.
+%         fprintf('best feature %f\n', bestFeature);
+%         fprintf('best value %f\n', value);
+        node.bestFeature = bestFeature;
+        node.value = value;
         remainingFeatures = setdiff(node.features,bestFeature);
         createNode('left',node,leftExamples,remainingFeatures);            
         createNode('right',node,rightExamples,remainingFeatures);        
@@ -113,7 +119,7 @@ function root = dtfit(X,y,varargin)
        if(isempty(leftExamples) || isempty(rightExamples)),stop = true;return,end
     end
 
-    function [bestFeature,leftExamples,rightExamples,fork,improvement] = selectFeature(examples,features)
+    function [bestFeature,leftExamples,rightExamples,fork,improvement, value] = selectFeature(examples,features)
     % Select the best feature to split on based on the specified remaining
     % examples and features. Also return the examples partitioned according
     % to this feature, a handle to the partitioning function, 'fork', and a
